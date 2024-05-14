@@ -38,4 +38,5 @@ jobs:
       # Read a secret from Github Actions secrets
       - name: Read mysecret
         run: |
-          echo ${{ secrets.MYSECRET }}
+          $var = ${{ secrets.MYSECRET }}
+          echo $var

@@ -1,5 +1,5 @@
 name: conjur-cloud-jwt-plugin
-#updated from VS Code
+#updated from VS Code.
 # Controls when the workflow will run
 on:
   # Allows you to run this workflow manually from the Actions tab

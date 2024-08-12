@@ -61,7 +61,7 @@ jobs:
       
       - name: 'echo secrets'
         run: |
-          echo "env.SECRET_1: ${{ env.SECRET_1 }}"        
+          echo "masked: env.SECRET_1: ${{ env.SECRET_1 }}"        
 #          echo "masked: env.SECRET_1: ${{ env.SECRET_1 }}"
       
 #      - name: 'capture to file'

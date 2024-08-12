@@ -71,9 +71,9 @@ jobs:
           echo "vars.CONJUR_JWT_AUTHN_ID: ${{ vars.CONJUR_JWT_AUTHN_ID }}" >> /tmp/output.txt
           echo "vars.CONJUR_SECRET_ID_1: ${{ vars.CONJUR_SECRET_ID_1 }}" >> /tmp/output.txt
           echo "SECRET_1: $SECRET_1" >> /tmp/output.txt
-          echo "" >> /tmp/output.txt
-          echo "env: " >> /tmp/output.txt
-          env >> /tmp/output.txt
+#          echo "" >> /tmp/output.txt
+#          echo "env: " >> /tmp/output.txt
+#          env >> /tmp/output.txt
 
       - name: 'upload artifact output.txt'
         uses: actions/upload-artifact@v3

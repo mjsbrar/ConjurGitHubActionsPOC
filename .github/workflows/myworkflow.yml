@@ -1,5 +1,4 @@
 name: myworkflow
-#updated from VS Code.
 # Controls when the workflow will run
 on:
   # Allows you to run this workflow manually from the Actions tab
@@ -17,39 +16,39 @@ jobs:
       
     steps:
     # <debug block>    
-#      - name: 'echo parameters'
-#        run: |
-#          echo "vars.CONJUR_URL: ${{ vars.CONJUR_URL }}"
-#          echo "vars.CONJUR_ACCOUNT: ${{ vars.CONJUR_ACCOUNT }}"
-#          echo "vars.CONJUR_JWT_AUTHN_ID: ${{ vars.CONJUR_JWT_AUTHN_ID }}"
-#          echo "vars.CONJUR_SECRET_ID_1: ${{ vars.CONJUR_SECRET_ID_1 }}"
+      - name: 'echo parameters'
+        run: |
+          echo "vars.CONJUR_URL: ${{ vars.CONJUR_URL }}"
+          echo "vars.CONJUR_ACCOUNT: ${{ vars.CONJUR_ACCOUNT }}"
+          echo "vars.CONJUR_JWT_AUTHN_ID: ${{ vars.CONJUR_JWT_AUTHN_ID }}"
+          echo "vars.CONJUR_SECRET_ID_1: ${{ vars.CONJUR_SECRET_ID_1 }}"
   
-#      - name: 'Get JWT (ID Token)'
-#        uses: actions/github-script@v6
-#        id: script
-#        timeout-minutes: 1
-#        with:
-#          debug: true
-#          script: |
-#            const token = process.env['ACTIONS_RUNTIME_TOKEN']
-#            const runtimeUrl = process.env['ACTIONS_ID_TOKEN_REQUEST_URL']
-#            core.setOutput('TOKEN', token.trim())
-#            core.setOutput('IDTOKENURL', runtimeUrl.trim())
+      - name: 'Get JWT (ID Token)'
+        uses: actions/github-script@v6
+        id: script
+        timeout-minutes: 1
+        with:
+          debug: true
+          script: |
+            const token = process.env['ACTIONS_RUNTIME_TOKEN']
+            const runtimeUrl = process.env['ACTIONS_ID_TOKEN_REQUEST_URL']
+            core.setOutput('TOKEN', token.trim())
+            core.setOutput('IDTOKENURL', runtimeUrl.trim())
 
-#      - name: 'Get JWT'
-#        run: |
-#          echo ${{steps.script.outputs.TOKEN}}
-#          export JWT=$(curl -H "Authorization: bearer  ${{steps.script.outputs.TOKEN}}" ${{steps.script.outputs.IDTOKENURL}}  -H "Accept: application/json; api-version=2.0" -H "Content-Type: application/json" -d "{}" | jq -r '.value')
-#          echo "JWT=$JWT" >> "$GITHUB_ENV"
-#          echo $JWT > /tmp/action.jwt
+      - name: 'Get JWT'
+        run: |
+          echo ${{steps.script.outputs.TOKEN}}
+          export JWT=$(curl -H "Authorization: bearer  ${{steps.script.outputs.TOKEN}}" ${{steps.script.outputs.IDTOKENURL}}  -H "Accept: application/json; api-version=2.0" -H "Content-Type: application/json" -d "{}" | jq -r '.value')
+          echo "JWT=$JWT" >> "$GITHUB_ENV"
+          echo $JWT > /tmp/action.jwt
       
-#      - name: 'Upload JWT Artifact'
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: actions.jwt
-#          path: /tmp/action.jwt
-#          retention-days: 90 
-#    # </debug block>  
+      - name: 'Upload JWT Artifact'
+        uses: actions/upload-artifact@v3
+        with:
+          name: actions.jwt
+          path: /tmp/action.jwt
+          retention-days: 90 
+    # </debug block>  
     
       - name: Import Secrets using CyberArk Conjur Secret Fetcher Action
         uses: cyberark/conjur-action@v2.0.5
@@ -62,23 +61,23 @@ jobs:
       - name: 'echo secrets'
         run: |
           echo "masked: env.SECRET_1: ${{ env.SECRET_1 }}"        
-#          echo "masked: env.SECRET_1: ${{ env.SECRET_1 }}"
+          echo "masked: env.SECRET_1: ${{ env.SECRET_1 }}"
       
-#      - name: 'capture to file'
-#        run: |
+      - name: 'capture to file'
+        run: |
           echo "output file" >> /tmp/output.txt
-#          echo "vars.CONJUR_URL: ${{ vars.CONJUR_URL }}" >> /tmp/output.txt
-#          echo "vars.CONJUR_ACCOUNT: ${{ vars.CONJUR_ACCOUNT }}" >> /tmp/output.txt
-#          echo "vars.CONJUR_JWT_AUTHN_ID: ${{ vars.CONJUR_JWT_AUTHN_ID }}" >> /tmp/output.txt
-#          echo "vars.CONJUR_SECRET_ID_1: ${{ vars.CONJUR_SECRET_ID_1 }}" >> /tmp/output.txt
-#          echo "SECRET_1: $SECRET_1" >> /tmp/output.txt
-#          echo "" >> /tmp/output.txt
-#          echo "env: " >> /tmp/output.txt
-#          env >> /tmp/output.txt
+          echo "vars.CONJUR_URL: ${{ vars.CONJUR_URL }}" >> /tmp/output.txt
+          echo "vars.CONJUR_ACCOUNT: ${{ vars.CONJUR_ACCOUNT }}" >> /tmp/output.txt
+          echo "vars.CONJUR_JWT_AUTHN_ID: ${{ vars.CONJUR_JWT_AUTHN_ID }}" >> /tmp/output.txt
+          echo "vars.CONJUR_SECRET_ID_1: ${{ vars.CONJUR_SECRET_ID_1 }}" >> /tmp/output.txt
+          echo "SECRET_1: $SECRET_1" >> /tmp/output.txt
+          echo "" >> /tmp/output.txt
+          echo "env: " >> /tmp/output.txt
+          env >> /tmp/output.txt
 
-#      - name: 'upload artifact output.txt'
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: output.txt
-#          path: /tmp/output.txt
-#          retention-days: 90
+      - name: 'upload artifact output.txt'
+        uses: actions/upload-artifact@v3
+        with:
+          name: output.txt
+          path: /tmp/output.txt
+          retention-days: 90

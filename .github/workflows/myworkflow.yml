@@ -9,10 +9,13 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
     permissions:
       id-token: write
       contents: read
+#    runs-on: ubuntu-latest
+#    permissions:
+#      id-token: write
+#      contents: read
       
     steps:
     # <debug block>    

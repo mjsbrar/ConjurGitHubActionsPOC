@@ -1,5 +1,4 @@
 name: myworkflow
-#updated from VS Code.
 # Controls when the workflow will run
 on:
   # Allows you to run this workflow manually from the Actions tab

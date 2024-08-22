@@ -1,4 +1,4 @@
-name: conjur-cloud-apikey-plugin
+name: conjur-cloud-apikey
 
 # Controls when the workflow will run
 on:

@@ -25,11 +25,6 @@ jobs:
           api_key: ${{ secrets.CONJUR_API_KEY }}
           secrets: ${{ vars.CONJUR_SECRET_ID_1 }}|SECRET_1;${{ vars.CONJUR_SECRET_ID_2 }}|SECRET_2
       
-      - name: 'echo secrets'
-        run: |
-          echo "masked: env.SECRET_1 : ${{ env.SECRET_1 }}"
-          echo "masked: env.SECRET_2: ${{ env.SECRET_2 }}"
-      
       - name: 'capture to file'
         run: |
           echo "output file" >> /tmp/env.txt

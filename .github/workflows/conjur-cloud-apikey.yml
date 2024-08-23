@@ -23,7 +23,7 @@ jobs:
           account: ${{ vars.CONJUR_ACCOUNT }}
           host_id: ${{ secrets.CONJUR_USERNAME }}
           api_key: ${{ secrets.CONJUR_API_KEY }}
-          secrets: ${{ vars.CONJUR_SECRET_ID_2 }}|"SECRET_2"
+          secrets: "${{ vars.CONJUR_SECRET_ID_2 }}"|SECRET_2
       
       - name: 'echo set env'
         run: |

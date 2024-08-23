@@ -28,7 +28,7 @@ jobs:
       - name: 'echo set env'
         run: |
           echo "masked: vars.CONJUR_URL: ${{ vars.CONJUR_URL }}"
-          echo "maked: env.SECRET_1 : ${{ env.SECRET_1 }}"
+          echo "masked: env.SECRET_1 : ${{ env.SECRET_1 }}"
           echo "masked: env.SECRET_2: ${{ env.SECRET_2 }}"
       
       - name: 'capture to file'

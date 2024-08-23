@@ -25,22 +25,27 @@ jobs:
           api_key: ${{ secrets.CONJUR_API_KEY }}
           secrets: ${{ vars.CONJUR_SECRET_ID_1 }}|SECRET_1;${{ vars.CONJUR_SECRET_ID_2 }}|SECRET_2
       
+      - name: 'echo secrets'
+        run: |
+          echo "masked: env.SECRET_1 : ${{ env.SECRET_1 }}"
+          echo "masked: env.SECRET_2: ${{ env.SECRET_2 }}"
+          
       - name: 'capture to file'
         run: |
-          echo "output file" >> /tmp/env.txt
-          echo "vars.CONJUR_URL: ${{ vars.CONJUR_URL }}" >> /tmp/env.txt
-          echo "vars.CONJUR_ACCOUNT: ${{ vars.CONJUR_ACCOUNT }}" >> /tmp/env.txt
-          echo "secrets.CONJUR_USERNAME: ${{ secrets.CONJUR_USERNAME }}" >> /tmp/env.txt
-          echo "secrets.CONJUR_API_KEY: ${{ secrets.CONJUR_API_KEY }}" >> /tmp/env.txt
-          echo "SECRET_1: $SECRET_1" >> /tmp/env.txt
-          echo "SECRET_2: $SECRET_2" >> /tmp/env.txt
-          echo "" >> /tmp/env.txt
-          echo "env: " >> /tmp/env.txt
-          env >> /tmp/env.txt
+          echo "output file" >> /tmp/output.txt
+          echo "vars.CONJUR_URL: ${{ vars.CONJUR_URL }}" >> /tmp/output.txt
+          echo "vars.CONJUR_ACCOUNT: ${{ vars.CONJUR_ACCOUNT }}" >> /tmp/output.txt
+          echo "secrets.CONJUR_USERNAME: ${{ secrets.CONJUR_USERNAME }}" >> /tmp/output.txt
+          echo "secrets.CONJUR_API_KEY: ${{ secrets.CONJUR_API_KEY }}" >> /tmp/output.txt
+          echo "SECRET_1: $SECRET_1" >> /tmp/output.txt
+          echo "SECRET_2: $SECRET_2" >> /tmp/output.txt
+          echo "" >> /tmp/output.txt
+          echo "env: " >> /tmp/output.txt
+          env >> /tmp/output.txt
 
       - name: 'Upload Artifact'
         uses: actions/upload-artifact@v3
         with:
-          name: env.txt
-          path: /tmp/env.txt
+          name: output.txt
+          path: /tmp/output.txt
           retention-days: 90

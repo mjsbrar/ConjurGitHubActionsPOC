@@ -22,7 +22,7 @@ jobs:
           CONJUR_URL: "https://mckesson-uat.secretsmgr.cyberark.cloud/api"
           CONJUR_ACCOUNT: "conjur"
           CONJUR_SERVICE_ID: "github"
-          VARIABLE_ID: "variable/data/vault/N-CJ-CMMCopayTEST/Cloud Service-GCPServiceKey-TEST@gis-iam-prod-3d6b.iam.gserviceaccount.com/keyid"
+          VARIABLE_ID: "variable/data/vault/N-CJ-CMMCopayTEST/Cloud Service-GCPServiceKey-TEST@gis-iam-prod-3d6b.iam.gserviceaccount.com/password"
           CONJUR_RETRIEVE_URL: "$CONJUR_URL/secrets/$CONJUR_ACCOUNT/$VARIABLE_ID"
         run: |
           echo "Retrieving JWT Token from Github"

@@ -1,0 +1,29 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI-Release-testing
+# Watch Policy branch
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+jobs:
+  handle-conjur:
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+        with:
+          fetch-depth: 0
+      - name: Onboard to Conjur
+        env:
+          CONJUR_URL: "https://$$.secretsmgr.cyberark.cloud/api"
+          CONJUR_ACCOUNT: ""
+          CONJUR_SERVICE_ID: ""
+        run: |
+          echo "Retrieving JWT Token from Github"
+          GIT_TOKEN=$(curl -vv -H "Authorization:bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL" | jq -r .value)
+          echo "Authenticating to Conjur"
+          SESSION_TOKEN=$(curl -vv -k --request POST "$CONJUR_URL/authn-jwt/$CONJUR_SERVICE_ID/$CONJUR_ACCOUNT/authenticate" --header "Content-Type: application/x-www-form-urlencoded" --header "Accept-Encoding: base64" --data-urlencode "jwt=$GIT_TOKEN")

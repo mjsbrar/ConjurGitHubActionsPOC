@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0
       - name: Onboard to Conjur
         env:
-          CONJUR_URL: "https://mckesson-uat.secretsmgr.cyberark.cloud/api"
+          CONJUR_URL: "https://mckesson-prod.secretsmgr.cyberark.cloud/api"
           CONJUR_RETRIEVE_URL: "https://mckesson-prod.secretsmgr.cyberark.cloud/api/secrets"
           CONJUR_ACCOUNT: "conjur"
           CONJUR_SERVICE_ID: "github"

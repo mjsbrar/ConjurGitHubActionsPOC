@@ -32,3 +32,4 @@ jobs:
           SESSION_TOKEN=$(curl -vv -k --request POST "$CONJUR_URL/authn-jwt/$CONJUR_SERVICE_ID/$CONJUR_ACCOUNT/authenticate" --header "Content-Type: application/x-www-form-urlencoded" --header "Accept-Encoding: base64" --data-urlencode "jwt=$GIT_TOKEN")
           output=$(curl -v -k -H "Authorization:Token token=\"${SESSION_TOKEN}\"" "$CONJUR_RETRIEVE_URL/$CONJUR_ACCOUNT/$VARIABLE_ID")
           echo "$output"
+          echo "$CONJUR_RETRIEVE_URL/$CONJUR_ACCOUNT/$VARIABLE_ID"

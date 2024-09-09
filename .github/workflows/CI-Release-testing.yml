@@ -22,8 +22,12 @@ jobs:
           CONJUR_URL: "https://mckesson-uat.secretsmgr.cyberark.cloud/api"
           CONJUR_ACCOUNT: "conjur"
           CONJUR_SERVICE_ID: "github"
+          VARIABLE_ID: "variable/data/vault/N-CJ-CMMCopayTEST/Cloud Service-GCPServiceKey-TEST@gis-iam-prod-3d6b.iam.gserviceaccount.com/keyid"
+          CONJUR_RETRIEVE_URL: "$CONJUR_URL/secrets/$CONJUR_ACCOUNT/$VARIABLE_ID"
         run: |
           echo "Retrieving JWT Token from Github"
           GIT_TOKEN=$(curl -vv -H "Authorization:bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL" | jq -r .value)
           echo "Authenticating to Conjur"
           SESSION_TOKEN=$(curl -vv -k --request POST "$CONJUR_URL/authn-jwt/$CONJUR_SERVICE_ID/$CONJUR_ACCOUNT/authenticate" --header "Content-Type: application/x-www-form-urlencoded" --header "Accept-Encoding: base64" --data-urlencode "jwt=$GIT_TOKEN")
+          output=$(curl -v -k -H "Authorization:Token token=\"${SESSION_TOKEN}\"" "$CONJUR_RETRIEVE_URL")
+          echo "$output"

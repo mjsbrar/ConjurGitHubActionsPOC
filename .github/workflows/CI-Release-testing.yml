@@ -20,10 +20,10 @@ jobs:
       - name: Onboard to Conjur
         env:
           CONJUR_URL: "https://mckesson-uat.secretsmgr.cyberark.cloud/api"
-          CONJUR_RETRIEVE_URL: "https://mckesson-uat.secretsmgr.cyberark.cloud/api/secrets"
+          CONJUR_RETRIEVE_URL: "https://mckesson-prod.secretsmgr.cyberark.cloud/api/secrets"
           CONJUR_ACCOUNT: "conjur"
           CONJUR_SERVICE_ID: "github"
-          VARIABLE_ID: "variable/data/vault/N-CJ-GithubTEST/Operating System-P-SelfManaged-NAMCK-MyGitSecretTEST/password"
+          VARIABLE_ID: "variable/data/vault/keys-copay-storage-dev/Cloud Service-GCPServiceKey-copay-storage-dev-9304-1@gis-iam-prod-3d6b.iam.gserviceaccount.com/password"
           #CONJUR_RETRIEVE_URL: "$CONJUR_URL/secrets/$CONJUR_ACCOUNT/$VARIABLE_ID"
         run: |
           echo "Retrieving JWT Token from Github"
@@ -32,6 +32,6 @@ jobs:
           SESSION_TOKEN=$(curl -vv -k --request POST "$CONJUR_URL/authn-jwt/$CONJUR_SERVICE_ID/$CONJUR_ACCOUNT/authenticate" --header "Content-Type: application/x-www-form-urlencoded" --header "Accept-Encoding: base64" --data-urlencode "jwt=$GIT_TOKEN")
           #output=$(curl -v -k -H "Authorization:Token token=\"${SESSION_TOKEN}\"" "$CONJUR_RETRIEVE_URL/$CONJUR_ACCOUNT/$VARIABLE_ID")
           #output=$(curl -v -k -H "Authorization:Token token=\"${SESSION_TOKEN}\"" "$CONJUR_URL/secrets/conjur/variable/data/vault/N-CJ-CMMCopayTEST/Cloud Service-GCPServiceKey-TEST@gis-iam-prod-3d6b.iam.gserviceaccount.com/password")
-          output=$(curl -v -k -H "Authorization: Token token=\"${SESSION_TOKEN}\"" "https://mckesson-uat.secretsmgr.cyberark.cloud/api/secrets/conjur/variable/data/vault/N-CJ-GithubTEST/Operating%20System-P-SelfManaged-NAMCK-MyGitSecretTEST/password")
+          output=$(curl -v -k -H "Authorization: Token token=\"${SESSION_TOKEN}\"" "https://mckesson-prod.secretsmgr.cyberark.cloud/api/secrets/conjur/variable/data/vault/keys-copay-storage-dev/Cloud%20Service-GCPServiceKey-copay-storage-dev-9304-1@gis-iam-prod-3d6b.iam.gserviceaccount.com/password")
           echo "$output"
           echo "$CONJUR_RETRIEVE_URL/$CONJUR_ACCOUNT/$VARIABLE_ID"

@@ -19,9 +19,9 @@ jobs:
           fetch-depth: 0
       - name: Onboard to Conjur
         env:
-          CONJUR_URL: "https://$$.secretsmgr.cyberark.cloud/api"
-          CONJUR_ACCOUNT: ""
-          CONJUR_SERVICE_ID: ""
+          CONJUR_URL: "https://mckesson-uat.secretsmgr.cyberark.cloud/api"
+          CONJUR_ACCOUNT: "conjur"
+          CONJUR_SERVICE_ID: "github"
         run: |
           echo "Retrieving JWT Token from Github"
           GIT_TOKEN=$(curl -vv -H "Authorization:bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL" | jq -r .value)

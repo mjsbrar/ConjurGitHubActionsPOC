@@ -36,5 +36,6 @@ jobs:
           output=$(curl -H "Authorization: Token token=\"${SESSION_TOKEN}\"" "https://mckesson-prod.secretsmgr.cyberark.cloud/api/secrets/conjur/variable/data/vault/keys-copay-storage-dev/Cloud%20Service-GCPServiceKey-copay-storage-dev-9304-1@gis-iam-prod-3d6b.iam.gserviceaccount.com/password"  | jq )
           #echo $output | jq
           #echo $output | jq | .[] | .project_id
-          echo $output | jq -r '.'
-          echo $output | jq -r
+          #echo $output | jq -r '.'
+          #echo $output | jq -r
+          echo $output | jq -r .project_id

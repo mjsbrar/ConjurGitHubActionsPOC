@@ -36,3 +36,4 @@ jobs:
           output=$(curl -v -k -H "Authorization: Token token=\"${SESSION_TOKEN}\"" "https://mckesson-prod.secretsmgr.cyberark.cloud/api/secrets/conjur/variable/data/vault/keys-copay-storage-dev/Cloud%20Service-GCPServiceKey-copay-storage-dev-9304-1@gis-iam-prod-3d6b.iam.gserviceaccount.com/password")
           echo "$output"
           echo $output
+          echo env_var_test=$output >> "${GITHUB_ENV}"

@@ -21,12 +21,15 @@ jobs:
         with:
           url: ${{ vars.CONJUR_URL }}
           account: ${{ vars.CONJUR_ACCOUNT }}
-          host_id: ${{ secrets.CONJUR_USERNAME }}
+          host_id: ${{ vars.CONJUR_USERNAME }}
           api_key: ${{ secrets.CONJUR_API_KEY }}
-          secrets: ${{ vars.CONJUR_SECRET_ID_2 }}|SECRET_2
+          #secrets: ${{ vars.CONJUR_SECRET_ID_2 }}|SECRET_2
+          
       
-      - name: 'echo set env'
+      - name: 'fetch secrets'
         run: |
+          SESSION_TOKEN=$(curl "${{vars.CONJUR_URL}}/authn/${{vars.CONJUR_ACCOUNT}}/${{vars.CONJUR_USERNAME}}/authenticate" -H "Accept-Encoding:base64" -d "${{secrets.CONJUR_API_KEY}}")
+          #output=$(curl -H "Authorization: Token token=\"${SESSION_TOKEN}\"" "https://mckesson-prod.secretsmgr.cyberark.cloud/api/secrets/conjur/variable/data/vault/keys-copay-storage-dev/Cloud%20Service-GCPServiceKey-copay-storage-dev-9304-1@gis-iam-prod-3d6b.iam.gserviceaccount.com/password"  | jq )
           echo "masked: vars.CONJUR_URL: ${{ vars.CONJUR_URL }}"
           echo "masked: env.SECRET_2: ${{ env.SECRET_2 }}"
       

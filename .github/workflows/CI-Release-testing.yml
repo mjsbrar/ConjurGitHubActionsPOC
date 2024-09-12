@@ -34,3 +34,4 @@ jobs:
           #output=$(curl -H "Authorization:Token token=\"${SESSION_TOKEN}\"" "$CONJUR_RETRIEVE_URL/$CONJUR_ACCOUNT/$VARIABLE_ID")
           #output=$(curl -H "Authorization:Token token=\"${SESSION_TOKEN}\"" "$CONJUR_URL/secrets/conjur/variable/data/vault/N-CJ-CMMCopayTEST/Cloud Service-GCPServiceKey-TEST@gis-iam-prod-3d6b.iam.gserviceaccount.com/password")
           output=$(curl -H "Authorization: Token token=\"${SESSION_TOKEN}\"" "https://mckesson-prod.secretsmgr.cyberark.cloud/api/secrets/conjur/variable/data/vault/keys-copay-storage-dev/Cloud%20Service-GCPServiceKey-copay-storage-dev-9304-1@gis-iam-prod-3d6b.iam.gserviceaccount.com/password"  | jq )
+          echo $output

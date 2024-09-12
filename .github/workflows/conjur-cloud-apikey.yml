@@ -29,7 +29,7 @@ jobs:
       - name: 'fetch secrets'
         run: |
           SESSION_TOKEN=$(curl "${{vars.CONJUR_URL}}/authn/${{vars.CONJUR_ACCOUNT}}/${{vars.CONJUR_USERNAME}}/authenticate" -H "Accept-Encoding:base64" -d "${{secrets.CONJUR_API_KEY}}")
-          $output=$(curl -H "Authorization: Token token=\"${SESSION_TOKEN}\"" "${{ vars.CONJUR_URL }}/secrets/conjur/variable/${{vars.CONJUR_SECRET_ID_2}}")
+          output=$(curl -H "Authorization: Token token=\"${SESSION_TOKEN}\"" "${{ vars.CONJUR_URL }}/secrets/conjur/variable/${{vars.CONJUR_SECRET_ID_2}}")
           #project_id=$(echo $output | jq -r .project_id)
           #echo "$output" | jq -r
           #echo "masked: vars.CONJUR_URL: ${{ vars.CONJUR_URL }}"

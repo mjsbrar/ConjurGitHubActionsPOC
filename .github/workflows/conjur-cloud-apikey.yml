@@ -23,7 +23,7 @@ jobs:
           account: ${{ vars.CONJUR_ACCOUNT }}
           host_id: ${{ vars.CONJUR_USERNAME }}
           api_key: ${{ secrets.CONJUR_API_KEY }}
-          #secrets: ${{ vars.CONJUR_SECRET_ID_2 }}|SECRET_2
+          secrets: ${{ vars.CONJUR_SECRET_ID_1 }}|SECRET_1;${{ vars.CONJUR_SECRET_ID_2 }}|SECRET_2
           
       
       - name: 'fetch secrets'

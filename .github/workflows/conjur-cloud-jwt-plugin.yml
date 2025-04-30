@@ -45,7 +45,7 @@ jobs:
           echo $JWT > /tmp/action.jwt
       
       - name: 'Upload JWT Artifact'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: actions.jwt
           path: /tmp/action.jwt

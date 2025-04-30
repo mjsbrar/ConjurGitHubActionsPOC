@@ -80,7 +80,7 @@ jobs:
           env >> /tmp/output.txt
 
       - name: 'upload artifact output.txt'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: output.txt
           path: /tmp/output.txt

@@ -61,8 +61,6 @@ jobs:
           echo "SECRET_1: $SECRET_1" >> /tmp/output.txt
           echo "SECRET_2: $SECRET_2" >> /tmp/output.txt
           echo "" >> /tmp/output.txt
-          echo "env: " >> /tmp/output.txt
-          env >> /tmp/output.txt
 
       - name: 'upload artifact output.txt'
         uses: actions/upload-artifact@v4

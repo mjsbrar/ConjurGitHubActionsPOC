@@ -29,8 +29,8 @@ jobs:
         run: |
           echo "::add-mask::$SECRET_1"
           echo "::add-mask::$SECRET_2"
-          echo "secret1=$SECRET_1" >> $OUTPUT
-          echo "secret2=$SECRET_2" >> $OUTPUT
+          echo "secret1=$SECRET_1" >> $GITHUB_OUTPUT
+          echo "secret2=$SECRET_2" >> $GITHUB_OUTPUT
 
   use-secrets:
     needs: fetch-secrets

@@ -1,58 +1,22 @@
 name: conjur-cloud-multiplejobs
-#updated from VS Code.
+
 # Controls when the workflow will run
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-  # Triggers the workflow on push events but only for the "main" branch
-  # push:
-  #   branches: [ "main" ]
 
 jobs:
-  test:
+  fetch-secrets:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
       contents: read
-      
+    outputs:
+      secret1: ${{ steps.export.outputs.secret1 }}
+      secret2: ${{ steps.export.outputs.secret2 }}
     steps:
-    # <debug block>    
-      - name: 'echo parameters'
-        run: |
-          echo "vars.CONJUR_URL: ${{ vars.CONJUR_URL }}"
-          echo "vars.CONJUR_ACCOUNT: ${{ vars.CONJUR_ACCOUNT }}"
-          echo "vars.CONJUR_JWT_AUTHN_ID: ${{ vars.CONJUR_JWT_AUTHN_ID }}"
-          echo "vars.CONJUR_SECRET_ID_1: ${{ vars.CONJUR_SECRET_ID_1 }}"
-          echo "vars.CONJUR_SECRET_ID_2: ${{ vars.CONJUR_SECRET_ID_2 }}"
-  
-      - name: 'Get JWT (ID Token)'
-        uses: actions/github-script@v6
-        id: script
-        timeout-minutes: 1
-        with:
-          debug: true
-          script: |
-            const token = process.env['ACTIONS_RUNTIME_TOKEN']
-            const runtimeUrl = process.env['ACTIONS_ID_TOKEN_REQUEST_URL']
-            core.setOutput('TOKEN', token.trim())
-            core.setOutput('IDTOKENURL', runtimeUrl.trim())
-
-      - name: 'Get JWT'
-        run: |
-          echo ${{steps.script.outputs.TOKEN}}
-          export JWT=$(curl -H "Authorization: bearer  ${{steps.script.outputs.TOKEN}}" ${{steps.script.outputs.IDTOKENURL}}  -H "Accept: application/json; api-version=2.0" -H "Content-Type: application/json" -d "{}" | jq -r '.value')
-          echo "JWT=$JWT" >> "$GITHUB_ENV"
-          echo $JWT > /tmp/action.jwt
-      
-      - name: 'Upload JWT Artifact'
-        uses: actions/upload-artifact@v4
-        with:
-          name: actions.jwt
-          path: /tmp/action.jwt
-          retention-days: 90 
-    # </debug block>  
-    
       - name: Import Secrets using CyberArk Conjur Secret Fetcher Action
+        id: conjur
         uses: cyberark/conjur-action@v2.0.5
         with:
           url: ${{ vars.CONJUR_URL }}
@@ -60,10 +24,31 @@ jobs:
           authn_id: ${{ vars.CONJUR_JWT_AUTHN_ID }}
           secrets: ${{ vars.CONJUR_SECRET_ID_1 }}|SECRET_1;${{ vars.CONJUR_SECRET_ID_2 }}|SECRET_2
       
+      - name: Export secrets as outputs
+        id: export
+        run: |
+          echo "::add-mask::$SECRET_1"
+          echo "::add-mask::$SECRET_2"
+          echo "::set-output name=secret1::$SECRET_1"
+          echo "::set-output name=secret2::$SECRET_2
+
+  use-secrets:
+    needs: fetch-secrets
+    runs-on: ubuntu-latest
+    env:
+      SECRET_1: ${{ needs.fetch-secrets.outputs.secret1 }}
+      SECRET_2: ${{ needs.fetch-secrets.outputs.secret2 }}
+    steps:
+      - name: Use secrets from previous job
+        run: |
+          echo "Secret 1: ${{ needs.fetch-secrets.outputs.secret1 }}"
+          echo "Secret 2: ${{ needs.fetch-secrets.outputs.secret2 }}"
+         
       - name: 'echo secrets'
         run: |
-          echo "masked: env.SECRET_1: ${{ env.SECRET_1 }}"
-          echo "masked: env.SECRET_2: ${{ env.SECRET_2 }}"
+          echo "Using SECRET_1 and SECRET_2 inside the container"
+          echo "SECRET_1 is $SECRET_1"
+          echo "SECRET_2 is $SECRET_2"
       
       - name: 'capture to file'
         run: |

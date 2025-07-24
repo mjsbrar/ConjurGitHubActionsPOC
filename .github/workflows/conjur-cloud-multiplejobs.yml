@@ -29,8 +29,8 @@ jobs:
         run: |
           echo "::add-mask::$SECRET_1"
           echo "::add-mask::$SECRET_2"
-          echo "::set-output name=secret1::$SECRET_1"
-          echo "::set-output name=secret2::$SECRET_2
+          echo "secret1=$SECRET_1" >> $OUTPUT
+          echo "secret2=$SECRET_2" >> $OUTPUT
 
   use-secrets:
     needs: fetch-secrets

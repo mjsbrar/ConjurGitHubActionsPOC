@@ -58,7 +58,7 @@ jobs:
           echo "vars.CONJUR_JWT_AUTHN_ID: ${{ vars.CONJUR_JWT_AUTHN_ID }}" >> /tmp/output.txt
           echo "vars.CONJUR_SECRET_ID_1: ${{ vars.CONJUR_SECRET_ID_1 }}" >> /tmp/output.txt
           echo "vars.CONJUR_SECRET_ID_2: ${{ vars.CONJUR_SECRET_ID_2 }}" >> /tmp/output.txt
-          echo "SECRET_1: $SECRET_1" >> /tmp/output.txt
+          echo "SECRET_1: $secret1" >> /tmp/output.txt
           echo "SECRET_2: $SECRET_2" >> /tmp/output.txt
           echo "" >> /tmp/output.txt
 
